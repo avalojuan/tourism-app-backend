@@ -1,6 +1,7 @@
 const authRepository = require('../repositories/auth');
 const ResourceNotFound = require('../errors/resourceNotFound');
 const Unauthorized = require('../errors/unauthorized');
+const { createToken } = require('../middlewares/tokenHandler');
 
 const { pwEncript, pwCheck } = require('../helpers/encryptionHandler');
 
@@ -14,7 +15,12 @@ const login = async (email, password) => {
   if (!user) throw new ResourceNotFound('User Not Found');
   const isCorrectPassword = await pwCheck(password, user.password);
   if (!isCorrectPassword) throw new Unauthorized('Incorrect password');
-  return user;
+  const token = await createToken({
+    id: user.id,
+    name: user.id,
+    email: user.email,
+  });
+  return { user, token };
 };
 
 module.exports = {

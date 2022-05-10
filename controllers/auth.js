@@ -9,7 +9,16 @@ const register = async (name, email, password) => {
 
 const login = async (email, password) => {
   const user = await authService.login(email, password);
-  return { logged: { id: user.id, name: user.name, email: user.email } };
+  let userData = user.user;
+  let token = user.token;
+  return {
+    logged: {
+      id: userData.id,
+      name: userData.name,
+      emailData: user.email,
+      token: token,
+    },
+  };
 };
 
 module.exports = {
