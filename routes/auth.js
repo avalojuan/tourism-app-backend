@@ -12,4 +12,13 @@ router.post(
   })
 );
 
+router.post(
+  '/login',
+  errorWrapper(async (req, res) => {
+    const { email, password } = req.body;
+    const loggedUser = await authController.login(email, password);
+    res.status(201).json({ message: loggedUser });
+  })
+);
+
 module.exports = router;
