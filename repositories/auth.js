@@ -11,6 +11,13 @@ const register = async (name, email, hashedPw) => {
   return newUser;
 };
 
+const login = async (email) => {
+  const user = await db.User.findOne({ where: { email: email } });
+  console.log(user);
+  return user;
+};
+
 module.exports = {
   register,
+  login,
 };
