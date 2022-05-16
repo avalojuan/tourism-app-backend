@@ -9,6 +9,11 @@ const create = async (poiAttributes) => {
   newPoi = await poiRepository.create(poiAttributes);
 };
 
+const list = () => {
+  return poiRepository.list();
+};
+
 module.exports = {
   create,
+  list,
 };

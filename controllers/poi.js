@@ -5,6 +5,12 @@ const create = async (poiAttributes) => {
   return newPoi;
 };
 
+const list = async () => {
+  const pois = await poiService.list();
+  return { message: 'List of pois', data: pois };
+};
+
 module.exports = {
   create,
+  list,
 };

@@ -52,6 +52,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      contact: {
+        type: DataTypes.STRING,
+      },
       others: DataTypes.TEXT,
       deletedAt: DataTypes.DATE,
     },

@@ -16,11 +16,20 @@ router.post(
       longitude: req.body.lng,
       cost: req.body.cost,
       schedule: req.body.schedule,
+      contact: req.body.contact,
       others: req.body.others,
     };
 
     const newPoi = await poiController.create(poiAttributes);
-    res.status(201).json({ message: newPoi });
+    res.status(201).json({ response: newPoi });
+  })
+);
+
+router.get(
+  '/',
+  errorWrapper(async (req, res) => {
+    const pois = await poiController.list();
+    res.status(200).json({ response: pois });
   })
 );
 

@@ -12,11 +12,18 @@ const create = async (poiAttributes) => {
     longitude: poiAttributes.longitude,
     cost: poiAttributes.cost,
     schedule: poiAttributes.schedule,
+    contact: poiAttributes.contact,
     others: poiAttributes.others,
   });
   return newPoi;
 };
 
+const list = async () => {
+  const pois = await db.poi.findAll();
+  return pois;
+};
+
 module.exports = {
   create,
+  list,
 };

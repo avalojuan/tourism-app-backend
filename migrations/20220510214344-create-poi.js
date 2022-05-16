@@ -46,6 +46,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      contact: {
+        type: Sequelize.STRING,
+      },
       others: {
         type: Sequelize.TEXT,
       },
