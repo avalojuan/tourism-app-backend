@@ -33,4 +33,19 @@ router.get(
   })
 );
 
+router.post(
+  '/:id/comment',
+  errorWrapper(async (req, res) => {
+    const { userId, rate, comment } = req.body;
+    const poiId = req.params.id;
+    const newComment = await poiController.addComment(
+      userId,
+      poiId,
+      rate,
+      comment
+    );
+    res.status(201).json({ response: newComment });
+  })
+);
+
 module.exports = router;

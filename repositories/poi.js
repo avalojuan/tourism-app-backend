@@ -1,4 +1,5 @@
 const db = require('../models');
+const ResourceNotFound = require('../errors/resourceNotFound');
 
 const create = async (poiAttributes) => {
   console.log(poiAttributes);
@@ -23,7 +24,15 @@ const list = async () => {
   return pois;
 };
 
+const addComment = async (userId, poiId, rate, comment) => {
+  const poi = await db.poi.findByPk(poiId);
+  if (!poi) throw new ResourceNotFound('POI Not Found');
+  poi.addPoiRateComment({ userId: userId, rate: rate, comment: comment });
+  return poi;
+};
+
 module.exports = {
   create,
   list,
+  addComment,
 };
