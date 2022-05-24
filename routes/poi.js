@@ -2,12 +2,14 @@ const errorWrapper = require('../middlewares/errorWrapper');
 const express = require('express');
 const router = express.Router();
 const poiController = require('../controllers/poi');
+const { verifyToken } = require('../middlewares/tokenHandler');
 
 router.post(
-  '/:userId/create',
+  '/create',
+  [verifyToken],
   errorWrapper(async (req, res) => {
     const poiAttributes = {
-      userId: req.params.userId,
+      userId: req.user.user.id,
       title: req.body.title,
       imageURL: req.body.imageURL,
       description: req.body.description,
@@ -27,6 +29,7 @@ router.post(
 
 router.get(
   '/',
+  [verifyToken],
   errorWrapper(async (req, res) => {
     const pois = await poiController.list();
     res.status(200).json({ response: pois });
@@ -35,8 +38,11 @@ router.get(
 
 router.post(
   '/:id/comment',
+  [verifyToken],
   errorWrapper(async (req, res) => {
-    const { userId, comment } = req.body;
+    const { comment } = req.body;
+    console.log(req.user);
+    const userId = req.user.user.id;
     const poiId = req.params.id;
     const newComment = await poiController.addComment(userId, poiId, comment);
     res.status(201).json({ response: newComment });
