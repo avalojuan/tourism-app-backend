@@ -10,11 +10,19 @@ const list = async () => {
   return { message: 'List of pois', data: pois };
 };
 
-const addComment = async (userId, poiId, rate, comment) => {
-  const newComment = await poiService.addComment(userId, poiId, rate, comment);
+const addComment = async (userId, poiId, comment) => {
+  const newComment = await poiService.addComment(userId, poiId, comment);
   return {
     message: 'Comment added',
-    data: { poi: { id: newComment.id, title: newComment.title } },
+    data: newComment,
+  };
+};
+
+const addRate = async (userId, poiId, rate) => {
+  const newRate = await poiService.addRate(userId, poiId, rate);
+  return {
+    message: 'Rate added',
+    data: newRate,
   };
 };
 
@@ -22,4 +30,5 @@ module.exports = {
   create,
   list,
   addComment,
+  addRate,
 };

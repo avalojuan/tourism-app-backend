@@ -36,15 +36,20 @@ router.get(
 router.post(
   '/:id/comment',
   errorWrapper(async (req, res) => {
-    const { userId, rate, comment } = req.body;
+    const { userId, comment } = req.body;
     const poiId = req.params.id;
-    const newComment = await poiController.addComment(
-      userId,
-      poiId,
-      rate,
-      comment
-    );
+    const newComment = await poiController.addComment(userId, poiId, comment);
     res.status(201).json({ response: newComment });
+  })
+);
+
+router.post(
+  '/:id/rate',
+  errorWrapper(async (req, res) => {
+    const { userId, rate } = req.body;
+    const poiId = req.params.id;
+    const newRate = await poiController.addRate(userId, poiId, rate);
+    res.status(201).json({ response: newRate });
   })
 );
 

@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       poi.belongsTo(models.User);
-      poi.hasMany(models.poiRateComment);
+      poi.hasMany(models.poiComment);
+      poi.hasMany(models.poiRate);
     }
   }
   poi.init(

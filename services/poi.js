@@ -13,12 +13,17 @@ const list = () => {
   return poiRepository.list();
 };
 
-const addComment = (userId, poiId, rate, comment) => {
-  return poiRepository.addComment(userId, poiId, rate, comment);
+const addComment = (userId, poiId, comment) => {
+  return poiRepository.addComment(userId, poiId, comment);
+};
+
+const addRate = (userId, poiId, rate) => {
+  return poiRepository.addRate(userId, poiId, rate);
 };
 
 module.exports = {
   create,
   list,
   addComment,
+  addRate,
 };

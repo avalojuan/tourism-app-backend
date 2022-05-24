@@ -1,45 +1,38 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class poiRateComment extends Model {
+  class poiComment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      poiRateComment.belongsTo(models.poi);
-      poiRateComment.belongsTo(models.User);
+      poiComment.belongsTo(models.poi);
+      poiComment.belongsTo(models.User);
     }
   }
-  poiRateComment.init(
+  poiComment.init(
     {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
       poiId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
-      rate: {
-        type: DataTypes.INTEGER,
+      comment: {
+        type: DataTypes.TEXT,
         allowNull: false,
       },
-      comment: DataTypes.TEXT,
-      deletedAt: DataTypes.DATE,
     },
     {
       sequelize,
-      modelName: 'poiRateComment',
-      paranoid: true,
+      modelName: 'poiComment',
     }
   );
-  return poiRateComment;
+  return poiComment;
 };
