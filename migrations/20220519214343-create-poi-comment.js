@@ -19,6 +19,7 @@ module.exports = {
       comment: {
         type: Sequelize.TEXT,
       },
+      deletedAt: Sequelize.DATE,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
