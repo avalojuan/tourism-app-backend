@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       poi.belongsTo(models.User);
       poi.hasMany(models.poiComment);
       poi.hasMany(models.poiRate);
+      poi.belongsToMany(models.Route, { through: 'routepois' });
     }
   }
   poi.init(
