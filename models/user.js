@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasMany(models.poi);
       User.hasMany(models.poiComment);
+      User.hasMany(models.Route);
     }
   }
   User.init(

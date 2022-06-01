@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Route.belongsToMany(models.poi, { through: 'routepois' });
+      Route.belongsTo(models.User);
     }
   }
   Route.init(
@@ -18,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
