@@ -1,11 +1,11 @@
-const errorWrapper = require('../middlewares/errorWrapper');
-const express = require('express');
+const errorWrapper = require("../middlewares/errorWrapper");
+const express = require("express");
 const router = express.Router();
-const { verifyToken } = require('../middlewares/tokenHandler');
-const routeController = require('../controllers/route');
+const { verifyToken } = require("../middlewares/tokenHandler");
+const routeController = require("../controllers/route");
 
 router.post(
-  '/create',
+  "/create",
   [verifyToken],
   errorWrapper(async (req, res) => {
     const userId = req.user.user.id;
@@ -20,11 +20,21 @@ router.post(
   })
 );
 router.get(
-  '/',
+  "/",
   [verifyToken],
   errorWrapper(async (req, res) => {
     const routes = await routeController.list();
     res.status(200).json({ response: routes });
+  })
+);
+
+router.get(
+  "/:id",
+  [verifyToken],
+  errorWrapper(async (req, res) => {
+    const { id } = req.params;
+    const route = await routeController.search(id);
+    res.status(200).json({ response: route });
   })
 );
 

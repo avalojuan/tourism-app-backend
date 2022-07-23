@@ -1,6 +1,6 @@
-const db = require('../models');
-const ResourceNotFound = require('../errors/resourceNotFound');
-const Sequelize = require('../models/index');
+const db = require("../models");
+const ResourceNotFound = require("../errors/resourceNotFound");
+const Sequelize = require("../models/index");
 
 const create = async (poiAttributes) => {
   console.log(poiAttributes);
@@ -23,17 +23,17 @@ const create = async (poiAttributes) => {
 const list = async () => {
   const pois = await db.poi.findAll({
     group: [
-      'poi.id',
-      'poiRates.poiId',
-      'poiComments.userId',
-      'poiComments.poiId',
+      "poi.id",
+      "poiRates.poiId",
+      "poiComments.userId",
+      "poiComments.poiId",
     ],
     attributes: {
       include: [
-        [db.sequelize.fn('SUM', db.sequelize.col('poiRates.rate')), 'rateSum'],
+        [db.sequelize.fn("SUM", db.sequelize.col("poiRates.rate")), "rateSum"],
         [
-          db.sequelize.fn('COUNT', db.sequelize.col('poiRates.rate')),
-          'rateCount',
+          db.sequelize.fn("COUNT", db.sequelize.col("poiRates.rate")),
+          "rateCount",
         ],
       ],
     },
@@ -47,13 +47,54 @@ const list = async () => {
         include: [
           {
             model: db.User,
-            attributes: ['name'],
+            attributes: ["name"],
           },
         ],
       },
       {
         model: db.User,
-        attributes: ['name'],
+        attributes: ["name"],
+      },
+    ],
+  });
+  return pois;
+};
+
+const search = async (id) => {
+  const pois = await db.poi.findAll({
+    where: [{ id: id }],
+    group: [
+      "poi.id",
+      "poiRates.poiId",
+      "poiComments.userId",
+      "poiComments.poiId",
+    ],
+    attributes: {
+      include: [
+        [db.sequelize.fn("SUM", db.sequelize.col("poiRates.rate")), "rateSum"],
+        [
+          db.sequelize.fn("COUNT", db.sequelize.col("poiRates.rate")),
+          "rateCount",
+        ],
+      ],
+    },
+    include: [
+      {
+        model: db.poiRate,
+        attributes: [],
+      },
+      {
+        model: db.poiComment,
+        include: [
+          {
+            model: db.User,
+            attributes: ["name"],
+          },
+        ],
+      },
+      {
+        model: db.User,
+        attributes: ["name"],
       },
     ],
   });
@@ -83,4 +124,5 @@ module.exports = {
   list,
   addComment,
   addRate,
+  search,
 };

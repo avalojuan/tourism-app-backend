@@ -1,11 +1,22 @@
-const db = require('../models');
-const ResourceNotFound = require('../errors/resourceNotFound');
-const Sequelize = require('../models/index');
+const db = require("../models");
+const ResourceNotFound = require("../errors/resourceNotFound");
+const Sequelize = require("../models/index");
 
 const list = async () => {
   const routes = await db.Route.findAll();
   return routes;
-}
+};
+const search = async (id) => {
+  const route = await db.Route.findByPk(id, {
+    include: [
+      {
+        model: db.poi,
+        attributes: ["id"],
+      },
+    ],
+  });
+  return route;
+};
 
 const create = async (userId, title, description, pois) => {
   const newRoute = await db.Route.create({
@@ -26,5 +37,6 @@ const create = async (userId, title, description, pois) => {
 
 module.exports = {
   create,
-  list
+  list,
+  search,
 };
