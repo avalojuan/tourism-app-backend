@@ -19,5 +19,13 @@ router.post(
     res.status(201).json({ response: newRoute });
   })
 );
+router.get(
+  '/',
+  [verifyToken],
+  errorWrapper(async (req, res) => {
+    const routes = await routeController.list();
+    res.status(200).json({ response: routes });
+  })
+);
 
 module.exports = router;

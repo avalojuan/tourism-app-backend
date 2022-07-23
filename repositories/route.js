@@ -2,6 +2,11 @@ const db = require('../models');
 const ResourceNotFound = require('../errors/resourceNotFound');
 const Sequelize = require('../models/index');
 
+const list = async () => {
+  const routes = await db.Route.findAll();
+  return routes;
+}
+
 const create = async (userId, title, description, pois) => {
   const newRoute = await db.Route.create({
     userId,
@@ -21,4 +26,5 @@ const create = async (userId, title, description, pois) => {
 
 module.exports = {
   create,
+  list
 };
