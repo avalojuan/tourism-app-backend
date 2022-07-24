@@ -5,6 +5,12 @@ const search = async (id) => {
   return { message: "User detail", data: user };
 };
 
+const update = async (id, name, pictureUrl) => {
+  const user = await userService.update(id, name, pictureUrl);
+  return { message: "User updated", data: user };
+};
+
 module.exports = {
   search,
+  update,
 };

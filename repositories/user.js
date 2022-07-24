@@ -18,14 +18,27 @@ const searchByEmail = async (email) => {
 };
 
 const searchById = async (id) => {
-  console.log(id);
   const user = await db.User.findByPk(id, {
-    attributes: ["id", "name", "email", "createdAt", "updatedAt"],
+    attributes: ["id", "name", "email", "pictureUrl", "createdAt", "updatedAt"],
   });
+  return user;
+};
+
+const update = async (id, name, pictureUrl) => {
+  const user = await db.User.update(
+    {
+      name,
+      pictureUrl,
+    },
+    {
+      where: { id: id },
+    }
+  );
   return user;
 };
 module.exports = {
   create,
   searchByEmail,
   searchById,
+  update,
 };

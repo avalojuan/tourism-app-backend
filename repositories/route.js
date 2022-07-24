@@ -3,7 +3,9 @@ const ResourceNotFound = require("../errors/resourceNotFound");
 const Sequelize = require("../models/index");
 
 const list = async () => {
-  const routes = await db.Route.findAll();
+  const routes = await db.Route.findAll({
+    include: [{ model: db.User, attributes: ["name", "pictureUrl"] }],
+  });
   return routes;
 };
 const search = async (id) => {
@@ -12,6 +14,10 @@ const search = async (id) => {
       {
         model: db.poi,
         attributes: ["id"],
+      },
+      {
+        model: db.User,
+        attributes: ["name", "pictureUrl"],
       },
     ],
   });

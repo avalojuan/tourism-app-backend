@@ -15,4 +15,15 @@ router.get(
   })
 );
 
+router.patch(
+  "/",
+  [verifyToken],
+  errorWrapper(async (req, res) => {
+    const { id } = req.user.user;
+    const { name, pictureUrl } = req.body;
+    const user = await userController.update(id, name, pictureUrl);
+    res.status(200).json({ response: user });
+  })
+);
+
 module.exports = router;

@@ -5,6 +5,11 @@ const search = async (id) => {
   return user;
 };
 
+const update = (id, name, pictureUrl) => {
+  return userRepository.update(id, name, pictureUrl);
+};
+
 module.exports = {
   search,
+  update,
 };
