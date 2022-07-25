@@ -61,6 +61,7 @@ router.post(
 
 router.post(
   "/:id/rate",
+  [verifyToken],
   errorWrapper(async (req, res) => {
     const { userId, rate } = req.body;
     const poiId = req.params.id;

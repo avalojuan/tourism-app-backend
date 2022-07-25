@@ -38,4 +38,33 @@ router.get(
   })
 );
 
+router.post(
+  "/:id/comment",
+  [verifyToken],
+  errorWrapper(async (req, res) => {
+    const { comment } = req.body;
+    console.log(req.user);
+    const userId = req.user.user.id;
+    const routeId = req.params.id;
+    const newComment = await routeController.addComment(
+      userId,
+      routeId,
+      comment
+    );
+    res.status(201).json({ response: newComment });
+  })
+);
+
+router.post(
+  "/:id/rate",
+  [verifyToken],
+  errorWrapper(async (req, res) => {
+    const { rate } = req.body;
+    const userId = req.user.user.id;
+    const routeId = req.params.id;
+    const newRate = await routeController.addRate(userId, routeId, rate);
+    res.status(201).json({ response: newRate });
+  })
+);
+
 module.exports = router;

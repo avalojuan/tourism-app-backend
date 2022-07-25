@@ -1,46 +1,38 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Route extends Model {
+  class routeComment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Route.belongsToMany(models.poi, { through: "routepois" });
-      Route.hasMany(models.routeComment);
-      Route.hasMany(models.routeRate);
-      Route.belongsTo(models.User);
+      routeComment.belongsTo(models.Route);
+      routeComment.belongsTo(models.User);
     }
   }
-  Route.init(
+  routeComment.init(
     {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
-      },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
-      name: {
-        type: DataTypes.STRING,
+      routeId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
-      description: {
+      comment: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      deletedAt: DataTypes.DATE,
     },
     {
       sequelize,
-      modelName: "Route",
-      paranoid: true,
+      modelName: "routeComment",
     }
   );
-  return Route;
+  return routeComment;
 };

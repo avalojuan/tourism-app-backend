@@ -16,8 +16,18 @@ const create = (userId, title, description, pois) => {
   return routeRepository.create(userId, title, description, pois);
 };
 
+const addComment = (userId, routeId, comment) => {
+  return routeRepository.addComment(userId, routeId, comment);
+};
+
+const addRate = (userId, routeId, rate) => {
+  return routeRepository.addRate(userId, routeId, rate);
+};
+
 module.exports = {
   create,
   list,
   search,
+  addComment,
+  addRate,
 };
