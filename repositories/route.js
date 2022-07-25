@@ -63,6 +63,15 @@ const search = async (id) => {
         model: db.User,
         attributes: ["name", "pictureUrl"],
       },
+      {
+        model: db.routeComment,
+        include: [
+          {
+            model: db.User,
+            attributes: ["name"],
+          },
+        ],
+      },
     ],
   });
   return route;
